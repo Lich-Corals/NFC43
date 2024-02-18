@@ -13,6 +13,7 @@ _config = {
     "automaticUpdates": True,       # Replace the "True" with "False" if you don't want automatic updates.
     "showPatchNotes": True,         # Replace the "True" with "False" if you don't want to see patch notes.
     "showPatchNoteButton": True,    # Replace the "True" with "False" if you don't want the "View patch notes" button in the converter menu.
+    "showConfigHint": True,         # Replace the "True" with "False" if you don't want to see the config hint.
     "convertToSquares": True,       # Replace the "True" with "False" if you don't want to convert to square formats.
     "convertToWallpapers": True     # Replace the "True" with "False" if you don't want to convert to wallpaper formats.
 }
@@ -258,10 +259,22 @@ class FileConverterMenuProvider(GObject.GObject, Nautilus.MenuProvider):
             sub_menuitem_patchNotes.connect('activate', callback,)
             submenu.append_item(sub_menuitem_patchNotes)
 
+        if _config["showConfigHint"]:
+            sub_menuitem_configHint = Nautilus.MenuItem(
+                name="configHint",
+                label=f"Configure NFC43",
+            )
+            callback = self.openConfigHint
+            sub_menuitem_configHint.connect('activate', callback,)
+            submenu.append_item(sub_menuitem_configHint)
+
         return [top_menuitem]
 
     def openPatchNotes(self, menu):
         os.system(f"nohup xdg-open \"https://github.com/Lich-Corals/Nautilus-fileconverter-43/releases\" &")
+
+    def openConfigHint(self, menu):
+        os.system(f"nohup xdg-open \"https://github.com/Lich-Corals/Nautilus-fileconverter-43?tab=readme-ov-file#3-configuration\" &")
 
     def __get_extension(self, format):
         return f".{format.get('extension', format['name'])}".lower()
