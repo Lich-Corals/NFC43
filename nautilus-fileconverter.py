@@ -1,12 +1,21 @@
 # Updates and patch notes
 converterVersion = "001000013" # Change the number if you want to trigger an update.
-automaticUpdates = True # Replace the "True" with "False" if you don't want automatic updates.
-showPatchNotes = True # Replace the "True" with "False" if you don't want to see patch notes.
-showPatchNoteButton = True # Replace the "True" with "False" if you don't want the "View patch notes" button in the converter menu.
+
+#automaticUpdates = True
+#showPatchNotes = True
+#showPatchNoteButton = True
 
 # Conversion formats
-convertToSquares = True # Replace the "True" with "False" if you don't want to convert to square formats.
-convertToWallpapers = True # Replace the "True" with "False" if you don't want to convert to wallpaper formats.
+#convertToSquares = True
+#convertToWallpapers = True
+
+_config = {
+    "automaticUpdates": True,       # Replace the "True" with "False" if you don't want automatic updates.
+    "showPatchNotes": True,         # Replace the "True" with "False" if you don't want to see patch notes.
+    "showPatchNoteButton": True,    # Replace the "True" with "False" if you don't want the "View patch notes" button in the converter menu.
+    "convertToSquares": True,       # Replace the "True" with "False" if you don't want to convert to square formats.
+    "convertToWallpapers": True     # Replace the "True" with "False" if you don't want to convert to wallpaper formats.
+}
 
 from gi.repository import Nautilus, GObject
 from typing import List
@@ -16,6 +25,8 @@ from pathlib import Path
 import pathlib
 import os, shlex
 import urllib.request
+import json
+
 pyheifInstalled = False
 jxlpyInstalled = False
 
@@ -34,13 +45,13 @@ except ImportError:
     jxlpyInstalled = False
     print(f"WARNING(Nautilus-file-converter): \"jxlpy\" not found, if you want to convert from- or to jxl format, install the package using \"pip install jxlpy\". See the readme on GitHub for more information.")
 
-if automaticUpdates:
+if _config["automaticUpdates"]:
     with urllib.request.urlopen(
             "https://raw.githubusercontent.com/Lich-Corals/NFC43-dev/main/nautilus-fileconverter.py") as f:
         onlineFile = f.read().decode().strip()
     if converterVersion not in onlineFile:
         print("Updating...")
-        if showPatchNotes:
+        if _config["showPatchNotes"]:
             os.system(f"nohup xdg-open \"https://github.com/Lich-Corals/Nautilus-fileconverter-43/releases\" &")
         currentPath = str(pathlib.Path(__file__).parent.resolve())
         if "/home/" in currentPath:
@@ -50,7 +61,7 @@ if automaticUpdates:
         else:
             print("updating only supported in home!")
 
-print = lambda *wish, **verbosity: None    # comment it out, if you wish debug printing
+#print = lambda *wish, **verbosity: None    # comment it out, if you wish debug printing
 
 class FileConverterMenuProvider(GObject.GObject, Nautilus.MenuProvider):
     READ_FORMATS_IMAGE = ('image/jpeg',
@@ -206,7 +217,7 @@ class FileConverterMenuProvider(GObject.GObject, Nautilus.MenuProvider):
             submenu.append_item(sub_menuitem)
 
         if formats[0]['name'] == 'JPEG':
-            if convertToSquares:
+            if _config["convertToSquares"]:
                 top_menuitemSquare = Nautilus.MenuItem(
                     name="FileConverterMenuProvider::square_png",
                     label="Square...",
@@ -222,7 +233,7 @@ class FileConverterMenuProvider(GObject.GObject, Nautilus.MenuProvider):
                     submenuSquare.append_item(sub_menuitemSquare)
                 submenu.append_item(top_menuitemSquare)
 
-            if convertToWallpapers:
+            if _config["convertToWallpapers"]:
                 top_menuitemWallpaper = Nautilus.MenuItem(
                     name="FileConverterMenuProvider::wallpaper",
                     label="Wallpaper...",
@@ -238,7 +249,7 @@ class FileConverterMenuProvider(GObject.GObject, Nautilus.MenuProvider):
                     submenuWallpaper.append_item(sub_menuitemWallpaper)
                 submenu.append_item(top_menuitemWallpaper)
 
-        if showPatchNoteButton:
+        if _config["showPatchNoteButton"]:
             sub_menuitem_patchNotes = Nautilus.MenuItem(
                 name="patchNotes",
                 label=f"View patch notes ({converterVersion})",
