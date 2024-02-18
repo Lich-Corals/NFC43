@@ -36,7 +36,7 @@ except ImportError:
 
 if automaticUpdates:
     with urllib.request.urlopen(
-            "https://raw.githubusercontent.com/Lich-Corals/Nautilus-fileconverter-43/main/nautilus-fileconverter.py") as f:
+            "https://raw.githubusercontent.com/Lich-Corals/NFC43-dev/main/nautilus-fileconverter.py") as f:
         onlineFile = f.read().decode().strip()
     if converterVersion not in onlineFile:
         print("Updating...")
