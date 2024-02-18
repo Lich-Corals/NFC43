@@ -1,5 +1,5 @@
 # --- Version number ---
-converterVersion = "001000013" # Change the number if you want to trigger an update.
+converterVersion = "001YYYVVV" # Change the number if you want to trigger an update.
 
 # --- Imports ---
 from gi.repository import Nautilus, GObject
@@ -47,7 +47,7 @@ currentPath = str(pathlib.Path(__file__).parent.resolve())  # used for config fi
 # --- Check for updates and update if auto-update is enabled ---
 if _config["automaticUpdates"]:
     with urllib.request.urlopen(
-            "https://raw.githubusercontent.com/Lich-Corals/NFC43-dev/main/nautilus-fileconverter.py") as f:
+            "https://raw.githubusercontent.com/Lich-Corals/Nautilus-fileconverter-43/main/nautilus-fileconverter.py") as f:
         onlineFile = f.read().decode().strip()
     if converterVersion not in onlineFile:
         print("Updating...")
