@@ -1,23 +1,6 @@
 # Updates and patch notes
 converterVersion = "001000013" # Change the number if you want to trigger an update.
 
-#automaticUpdates = True
-#showPatchNotes = True
-#showPatchNoteButton = True
-
-# Conversion formats
-#convertToSquares = True
-#convertToWallpapers = True
-
-_config = {
-    "automaticUpdates": True,       # Replace the "True" with "False" if you don't want automatic updates.
-    "showPatchNotes": True,         # Replace the "True" with "False" if you don't want to see patch notes.
-    "showPatchNoteButton": True,    # Replace the "True" with "False" if you don't want the "View patch notes" button in the converter menu.
-    "showConfigHint": True,         # Replace the "True" with "False" if you don't want to see the config hint.
-    "convertToSquares": True,       # Replace the "True" with "False" if you don't want to convert to square formats.
-    "convertToWallpapers": True     # Replace the "True" with "False" if you don't want to convert to wallpaper formats.
-}
-
 from gi.repository import Nautilus, GObject
 from typing import List
 from PIL import Image, UnidentifiedImageError
@@ -27,6 +10,27 @@ import pathlib
 import os, shlex
 import urllib.request
 import json
+
+
+_config = {                             # These are the pre-defined default settings; edit NFC43-Config.json after first run of the script instead.
+    "automaticUpdates": True,       # Replace the "True" with "False" if you don't want automatic updates.
+    "showPatchNotes": True,         # Replace the "True" with "False" if you don't want to see patch notes.
+    "showPatchNoteButton": True,    # Replace the "True" with "False" if you don't want the "View patch notes" button in the converter menu.
+    "showConfigHint": True,         # Replace the "True" with "False" if you don't want to see the config hint.
+    "convertToSquares": True,       # Replace the "True" with "False" if you don't want to convert to square formats.
+    "convertToWallpapers": True     # Replace the "True" with "False" if you don't want to convert to wallpaper formats.
+}
+
+currentPath = str(pathlib.Path(__file__).parent.resolve())  # used for config file and self-update!
+if "/home/" in currentPath:
+    if Path(f"{currentPath}/NFC43-Config.json").is_file():
+        with open(f"{currentPath}/NFC43-Config.json", 'r') as jsonFile:
+            configJson = json.load(jsonFile)
+        _config = configJson
+    else:
+        configJson = json.dumps(_config, indent=4)
+        with open(f"{currentPath}/NFC43-Config.json", "w") as jsonFile:
+            jsonFile.write(configJson)
 
 pyheifInstalled = False
 jxlpyInstalled = False
@@ -54,7 +58,6 @@ if _config["automaticUpdates"]:
         print("Updating...")
         if _config["showPatchNotes"]:
             os.system(f"nohup xdg-open \"https://github.com/Lich-Corals/Nautilus-fileconverter-43/releases\" &")
-        currentPath = str(pathlib.Path(__file__).parent.resolve())
         if "/home/" in currentPath:
             fileUpdatePath = f"{currentPath}/{os.path.basename(__file__)}"
             with open(fileUpdatePath, 'w') as file:
