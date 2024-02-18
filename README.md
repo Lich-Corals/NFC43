@@ -145,6 +145,7 @@ You may need to [install it manually](https://github.com/olokelo/jxlpy#build-it-
 # 3. Configuration
 The program can be configured using the  NFC43-Config.json file, which will be created in the installation dictionary when the script is executed for the first time.
 Just modify the file, by changing the 'true' and 'false' values.
+If the program is installed in a root location, then you need to change the configuration inside the script.
 <b>Don't forget to save your changes, and restart nautilus after modifying the configuration!</b>
 ```bash
     #Quit nautilus
