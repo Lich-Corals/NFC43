@@ -1,5 +1,5 @@
 # --- Version number ---
-converterVersion = "001YYYVVV" # Change the number if you want to trigger an update.
+converterVersion = "001002000" # Change the number if you want to trigger an update.
 
 # --- Imports ---
 from gi.repository import Nautilus, GObject
@@ -11,6 +11,10 @@ import pathlib
 import os, shlex
 import urllib.request
 import json
+
+# --- Get the path to the script and if it's writeable ---
+currentPath = str(pathlib.Path(__file__).parent.resolve())  # used for config file and self-update!
+scriptUpdateable = os.access(f"{currentPath}/{os.path.basename(__file__)}", os.W_OK)
 
 # --- Check if dependencies are installed and imported ---
 pyheifInstalled = False
@@ -31,18 +35,22 @@ except ImportError:
     jxlpyInstalled = False
     print(f"WARNING(Nautilus-file-converter): \"jxlpy\" not found, if you want to convert from- or to jxl format, install the package using \"pip install jxlpy\". See the readme on GitHub for more information.")
 
-# --- Set default configs ---
-_config = {                             # These are the pre-defined default settings; edit NFC43-Config.json if the program is installed in your home dictionary.
-    "automaticUpdates": True,       # Replace the "True" with "False" if you don't want automatic updates.
-    "showPatchNotes": True,         # Replace the "True" with "False" if you don't want to see patch notes.
-    "showPatchNoteButton": True,    # Replace the "True" with "False" if you don't want the "View patch notes" button in the converter menu.
-    "showConfigHint": True,         # Replace the "True" with "False" if you don't want to see the config hint.
-    "convertToSquares": True,       # Replace the "True" with "False" if you don't want to convert to square formats.
-    "convertToWallpapers": True     # Replace the "True" with "False" if you don't want to convert to wallpaper formats.
-}
+if not scriptUpdateable:
+    print(f"WARNING(Nautilus-file-converter): No permission to self-update; script at \"{currentPath}/{os.path.basename(__file__)}\" is not writeable. See the readme on GitHub for more information.")
 
-# --- Get the path to the script ---
-currentPath = str(pathlib.Path(__file__).parent.resolve())  # used for config file and self-update!
+if not os.access(currentPath, os.W_OK):
+    print(f"WARNING(Nautilus-file-converter): No permission to write configuration file; \"{currentPath}\" is not writeable. See the readme on GitHub for more information.")
+
+# --- Set default configs ---
+_config = {                                 # These are the pre-defined default settings; edit NFC43-Config.json if the program is installed in your home dictionary.
+    "automaticUpdates": True,           # Replace the "True" with "False" if you don't want automatic updates.
+    "showPatchNotes": True,             # Replace the "True" with "False" if you don't want to see patch notes.
+    "showPatchNoteButton": True,        # Replace the "True" with "False" if you don't want the "View patch notes" button in the converter menu.
+    "showConfigHint": True,             # Replace the "True" with "False" if you don't want to see the config hint.
+    "convertToSquares": True,           # Replace the "True" with "False" if you don't want to convert to square formats.
+    "convertToWallpapers": True,        # Replace the "True" with "False" if you don't want to convert to wallpaper formats.
+    "checkForDoubleInstallation": True  # Replace the "True" with "False" if you don't the script to check if there is a second installation in another dictionary.
+}
 
 # --- Check for updates and update if auto-update is enabled ---
 if _config["automaticUpdates"]:
@@ -53,7 +61,7 @@ if _config["automaticUpdates"]:
         print("Updating...")
         if _config["showPatchNotes"]:
             os.system(f"nohup xdg-open \"https://github.com/Lich-Corals/Nautilus-fileconverter-43/releases\" &")
-        if "/home/" in currentPath:
+        if scriptUpdateable:
             fileUpdatePath = f"{currentPath}/{os.path.basename(__file__)}"
             with open(fileUpdatePath, 'w') as file:
                 file.write(onlineFile)
@@ -65,7 +73,7 @@ if _config["automaticUpdates"]:
 print = lambda *wish, **verbosity: None
 
 # --- Load or store configs json ---
-if "/home/" in currentPath:
+if scriptUpdateable:
     if Path(f"{currentPath}/NFC43-Config.json").is_file():
         with open(f"{currentPath}/NFC43-Config.json", 'r') as jsonFile:
             configJson = json.load(jsonFile)
