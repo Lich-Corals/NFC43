@@ -68,6 +68,10 @@ if _config["automaticUpdates"]:
         else:
             print("updating only supported in home!")
 
+# --- Check for duplicate script if enabled ---
+if _config["checkForDoubleInstallation"] and scriptUpdateable and os.path.isfile("/usr/share/nautilus-python/extensions/nautilus-fileconverter.py"):
+    print(f"WARNING(Nautilus-file-converter): Double script installation detected. See the readme on GitHub for more information.")
+
 # --- Disable debug printing ---
 # comment it out (using '#' in front of the line) if you wish debug printing
 print = lambda *wish, **verbosity: None

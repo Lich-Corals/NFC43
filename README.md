@@ -157,18 +157,17 @@ If the program is installed in a root location, then you need to change the conf
 ## 3.1 Automatic updates
 Automatic updates are only working in the home dictionary. If you've installed the script at the system-wide location, you may turn off automatic updates.
 <br/><br/>To <b>turn off automatic updates</b>, open the config file with a text editor and set the `automaticUpdates` variable to 'false'.
-
-## 3.2 Manual update trigger
 To <b>manually trigger a self-update</b>, just open the .py file with a text editor and change the value of the `converterVersion` variable.
 
-## 3.3 Shown menu items
+## 3.2 Shown menu items
 To turn off the <b>patch note button</b> in the context menu, open the config file with a text editor and set the `showPatchNoteButton` variable to 'false'.
 <br/><br/>To turn off the <b>Configure NFC43 button</b> in the context menu, open the config file with a text editor and set the `showConfigHint` variable to 'false'.
 <br/><br/>To turn off the '<b>convert to square</b>' option, open the config file with a text editor and set the `convertToSquares` variable to 'false'.
 <br/><br/>To turn off the '<b>convert to wallpaper</b>' function, open the config file with a text editor and set the `convertToWallpapers` variable to 'false'.
 
-## 3.4 Patch note pop-up
+## 3.3 Other options
 To turn off the <b>patch note pop-up</b>, open the config file with a text editor and set the `showPatchNotes` variable to 'false'.
+To turn off the <b>Double script installation Warning</b>, open the config file with a text editor and set the `checkForDoubleInstallation` variable to 'false'.
 
 # 4. Updating
 If the script is installed in the home folder (~/.local/share/nautilus-python/extensions/), it will update automatically as long as the automatic updates aren't disabled.
