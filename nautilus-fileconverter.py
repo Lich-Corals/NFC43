@@ -25,7 +25,7 @@ try:
     pyheifInstalled = True
 except ImportError:
     pyheifInstalled = False
-    print(f"WARNING(Nautilus-file-converter): \"pyheif\" not found, if you want to convert from heif format, install the package using \"pip install pyheif\". See the readme on GitHub for more information." )
+    print(f"WARNING(Nautilus-file-converter)(000): \"pyheif\" not found, if you want to convert from heif format. View https://github.com/Lich-Corals/Nautilus-fileconverter-43/blob/main/README.md#6-warnings-and-errors for more information." )
 
 try:
     import jxlpy
@@ -33,13 +33,13 @@ try:
     jxlpyInstalled = True
 except ImportError:
     jxlpyInstalled = False
-    print(f"WARNING(Nautilus-file-converter): \"jxlpy\" not found, if you want to convert from- or to jxl format, install the package using \"pip install jxlpy\". See the readme on GitHub for more information.")
+    print(f"WARNING(Nautilus-file-converter)(001): \"jxlpy\" not found, if you want to convert from- or to jxl format. View https://github.com/Lich-Corals/Nautilus-fileconverter-43/blob/main/README.md#6-warnings-and-errors for more information.")
 
 if not scriptUpdateable:
-    print(f"WARNING(Nautilus-file-converter): No permission to self-update; script at \"{currentPath}/{os.path.basename(__file__)}\" is not writeable. See the readme on GitHub for more information.")
+    print(f"WARNING(Nautilus-file-converter)(002): No permission to self-update; script at \"{currentPath}/{os.path.basename(__file__)}\" is not writeable. View https://github.com/Lich-Corals/Nautilus-fileconverter-43/blob/main/README.md#6-warnings-and-errors for more information.")
 
 if not os.access(currentPath, os.W_OK):
-    print(f"WARNING(Nautilus-file-converter): No permission to write configuration file; \"{currentPath}\" is not writeable. See the readme on GitHub for more information.")
+    print(f"WARNING(Nautilus-file-converter)(003): No permission to write configuration file; \"{currentPath}\" is not writeable. View https://github.com/Lich-Corals/Nautilus-fileconverter-43/blob/main/README.md#6-warnings-and-errors for more information.")
 
 # --- Set default configs ---
 _config = {                                 # These are the pre-defined default settings; edit NFC43-Config.json if the program is installed in your home dictionary.
@@ -70,7 +70,7 @@ if _config["automaticUpdates"]:
 
 # --- Check for duplicate script if enabled ---
 if _config["checkForDoubleInstallation"] and scriptUpdateable and os.path.isfile("/usr/share/nautilus-python/extensions/nautilus-fileconverter.py"):
-    print(f"WARNING(Nautilus-file-converter): Double script installation detected. See the readme on GitHub for more information.")
+    print(f"WARNING(Nautilus-file-converter)(004): Double script installation detected. View https://github.com/Lich-Corals/Nautilus-fileconverter-43/blob/main/README.md#6-warnings-and-errors for more information.")
 
 # --- Disable debug printing ---
 # comment it out (using '#' in front of the line) if you wish debug printing
