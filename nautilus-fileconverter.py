@@ -42,7 +42,7 @@ if not os.access(currentPath, os.W_OK):
     print(f"WARNING(Nautilus-file-converter)(003): No permission to write configuration file; \"{currentPath}\" is not writeable. View https://github.com/Lich-Corals/Nautilus-fileconverter-43/blob/main/README.md#6-warnings-and-errors for more information.")
 
 # --- Set default configs ---
-_config = {                                 # These are the pre-defined default settings; edit NFC43-Config.json if the program is installed in your home dictionary.
+_configPreset = {                                 # These are the pre-defined default settings; edit NFC43-Config.json if the program is installed in your home dictionary.
     "automaticUpdates": True,           # Replace the "True" with "False" if you don't want automatic updates.
     "showPatchNotes": True,             # Replace the "True" with "False" if you don't want to see patch notes.
     "showPatchNoteButton": True,        # Replace the "True" with "False" if you don't want the "View patch notes" button in the converter menu.
@@ -51,6 +51,24 @@ _config = {                                 # These are the pre-defined default 
     "convertToWallpapers": True,        # Replace the "True" with "False" if you don't want to convert to wallpaper formats.
     "checkForDoubleInstallation": True  # Replace the "True" with "False" if you don't the script to check if there is a second installation in another dictionary.
 }
+
+# --- Load or store configs json ---
+if scriptUpdateable:
+    if Path(f"{currentPath}/NFC43-Config.json").is_file():
+        with open(f"{currentPath}/NFC43-Config.json", 'r') as jsonFile:
+            try:
+                configJson = json.load(jsonFile)
+            except json.decoder.JSONDecodeError:
+                configJson = _configPreset
+            _config = configJson
+        for _setting in _configPreset:
+            if _setting not in _config:
+                _config[_setting] = _configPreset[_setting]
+        configJson = json.dumps(_config, indent=4)
+    else:
+        configJson = json.dumps(_configPreset, indent=4)
+    with open(f"{currentPath}/NFC43-Config.json", "w") as jsonFile:
+        jsonFile.write(configJson)
 
 # --- Check for updates and update if auto-update is enabled ---
 if _config["automaticUpdates"]:
@@ -65,8 +83,6 @@ if _config["automaticUpdates"]:
             fileUpdatePath = f"{currentPath}/{os.path.basename(__file__)}"
             with open(fileUpdatePath, 'w') as file:
                 file.write(onlineFile)
-        else:
-            print("updating only supported in home!")
 
 # --- Check for duplicate script if enabled ---
 if _config["checkForDoubleInstallation"] and scriptUpdateable and os.path.isfile("/usr/share/nautilus-python/extensions/nautilus-fileconverter.py"):
@@ -75,17 +91,6 @@ if _config["checkForDoubleInstallation"] and scriptUpdateable and os.path.isfile
 # --- Disable debug printing ---
 # comment it out (using '#' in front of the line) if you wish debug printing
 print = lambda *wish, **verbosity: None
-
-# --- Load or store configs json ---
-if scriptUpdateable:
-    if Path(f"{currentPath}/NFC43-Config.json").is_file():
-        with open(f"{currentPath}/NFC43-Config.json", 'r') as jsonFile:
-            configJson = json.load(jsonFile)
-        _config = configJson
-    else:
-        configJson = json.dumps(_config, indent=4)
-        with open(f"{currentPath}/NFC43-Config.json", "w") as jsonFile:
-            jsonFile.write(configJson)
 
 # --- Create file format tuples and write format dict-lists? ---
 class FileConverterMenuProvider(GObject.GObject, Nautilus.MenuProvider):
