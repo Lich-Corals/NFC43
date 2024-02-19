@@ -185,11 +185,11 @@ If you experience any issues with the extension, please report it on the [issues
 #### WARNING(Nautilus-file-converter)(XXX):
 
 ##### (000): "pyheif" not found
-<b>Causes:</b><br/><br/>
+<b>Causes:</b><br/>
 This warning is caused, because the script is not able to find your pyheif installation.
-<br/><b>Possible Effects:</b><br/><br/>
+<br/><br/><b>Possible Effects:</b><br/>
 Without pyheif, the converter won't be able to convert from heif file format.
-<br/><b>How to solve?</b><br/><br/>
+<br/><br/><b>How to solve?</b><br/>
 To solve this warning, you need to install pyheif using pip.
 View the [Optional dependencies](#22-optional-dependencies) section to get installation instructions.
 
