@@ -182,9 +182,9 @@ Converting a file can take some time. There is no indicator when the process is 
 If you experience any issues with the extension, please report it on the [issues](https://github.com/Lich-Corals/nautilus-fileconverter/issues) page.
 
 # 6. Warnings and errors
-### WARNING(Nautilus-file-converter)(XXX):
+## WARNING(Nautilus-file-converter)(XXX):
 
-#### (000): "pyheif" not found
+### (000): "pyheif" not found
 <b>Causes:</b><br/>
 This warning is caused, because the script is not able to find your pyheif installation.
 <br/><br/><b>Possible Effects:</b><br/>
@@ -193,7 +193,7 @@ Without pyheif, the converter won't be able to convert from heif file format.
 To solve this warning, you need to install pyheif using pip.
 View the [Optional dependencies](#22-optional-dependencies) section to get installation instructions.
 
-#### (001): "jxlpy" not found
+### (001): "jxlpy" not found
 <b>Causes:</b><br/>
 This warning is caused, because the script is not able to find your jxlpy installation.
 <br/><br/><b>Possible Effects:</b><br/>
@@ -202,7 +202,7 @@ Without jxlpy, the converter won't be able to convert from- or to jxl file forma
 To solve this warning, you need to install jxlpy using pip.
 <br/>View the [Optional dependencies](#22-optional-dependencies) section to get installation instructions.
 
-#### (002): No permission to self-update
+### (002): No permission to self-update
 <b>Causes:</b><br/>
 The program has no permission to write it's own file.
 <br/>This warning usually occurs when the script is located at "/usr/share/nautilus-python/extensions/".
@@ -214,7 +214,7 @@ To remove the release popup, you may disable the corresponding setting. To do th
 <br/>To get self updates, the script needs the permissions to write to itself. This can be done by changing the file permissions using [chmod](https://www.man7.org/linux/man-pages/man1/chmod.1.html) or by running the script as a privileged user.
 <br/>To be able to self-update, the user, who is executing the script (by starting nautilus) needs permissions to edit the script itself.
 
-#### (003): No permission to write configuration file
+### (003): No permission to write configuration file
 <b>Causes:</b><br/>
 The program has no permission to write in the dictionary where it is installed.
 <br/>This warning usually occurs when the script is located at "/usr/share/nautilus-python/extensions/".
@@ -227,7 +227,7 @@ To fix this, the script needs the permissions to write inside the folder, where 
 <br/>To use the configuration file, the user, who is executing the script (by starting nautilus) needs permissions create and edit files inside the installation dictionary.
 <br/><br/>To prevent the settings from being reset, you can add a config file to the dictionary. Note that the file will not be update if new configurations are added.
 
-#### (004): Double script installation detected
+### (004): Double script installation detected
 <b>Causes:</b><br/>
 The script is installed in a home location and finds another script with the same name in the root installation folder ("/usr/share/nautilus-python/extensions/").
 <br/><br/><b>Possible Effects:</b><br/>
