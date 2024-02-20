@@ -77,7 +77,7 @@ if _config["automaticUpdates"]:
         onlineFile = f.read().decode().strip()
     if converterVersion not in onlineFile:
         print(f"UPDATES(Nautilus-file-converter)(005): Current Version: {converterVersion}\n"
-              f"                                       Attempting to update... ")
+              f"                                       Attempting to update...")
         if scriptUpdateable:
             print("Updating...")
             fileUpdatePath = f"{currentPath}/{os.path.basename(__file__)}"
