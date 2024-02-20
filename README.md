@@ -238,7 +238,7 @@ To solve this issue, you have to remove one of the files (in "/usr/share/nautilu
 ### (005): Double script installation detected
 <b>Causes:</b><br/>
 Automatic updates are enabled and there are updates available.
-This is not an error, just information to make problems be easier to solve.
+This is not an error, just information to make problems easier to solve.
 
 # 7. Any questions?
 If anything is not clear...
